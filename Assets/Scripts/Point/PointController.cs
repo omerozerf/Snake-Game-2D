@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PointController : MonoBehaviour
 {
+    [SerializeField] private TailController tailController;
+    
 
     public void RePosition()
     {
@@ -16,7 +18,16 @@ public class PointController : MonoBehaviour
         var yPos = Random.Range(1, 21);
         var spawnPosition = new Vector3(xPos, yPos, 0);
 
+        foreach (var part in tailController.snake) //point spawn bug
+        {
+            if (spawnPosition == part.transform.position)
+            {
+                Debug.Log("Reposition Point!");
+                return RandomSpawnPosition();
+            }
+        }
         return spawnPosition;
+        
     }
     
 }

@@ -22,6 +22,7 @@ public class TailController : MonoBehaviour
     {
         GameObject newTail = Instantiate(tail, snake[^1].transform.position, Quaternion.identity, tails);
         snake.Add(newTail);
+        snake[1].GetComponent<Collider2D>().enabled = false;
     }
 
     public void FollowTail()

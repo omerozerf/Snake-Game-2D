@@ -7,8 +7,12 @@ public class SnakeController : MonoBehaviour
 {
     [SerializeField] private PointController pointController;
     [SerializeField] private TailController tailController;
+    [SerializeField] private ScoreUpdate scoreUpdate;
+    [SerializeField] private Canvas canvas;
     
-    
+
+
+
     [SerializeField] private float speed;
 
     private Vector3 direction;
@@ -16,6 +20,7 @@ public class SnakeController : MonoBehaviour
     
     private void Start()
     {
+        canvas.gameObject.SetActive(false);
         desiredDirection = Vector3.up;
         StartCoroutine(Move());
     }
@@ -65,10 +70,12 @@ public class SnakeController : MonoBehaviour
     {
         if (col.CompareTag("Wall") || col.CompareTag("Tail"))
         {
-            Debug.Log("You Lost!");
+            canvas.gameObject.SetActive(true);
+            Time.timeScale = 0;
         }
         else if (col.CompareTag("Point"))
         {
+            scoreUpdate.score++;
             pointController.RePosition();
             tailController.AddTail();
         }
